@@ -1,12 +1,13 @@
 import json
-import boto3
 from pathlib import Path
 import pandas as pd
 
 def main():
-    all_rows = []
-    folder_path = "Exercises/Exercise-4/data"
-    json_file = list(Path(folder_path).rglob("*.json"))
+    folder_path = Path("data")
+    if not folder_path.exists():
+        raise FileNotFoundError("Missing 'data' directory. Make sure the JSON files are present in the project before running the container.")
+
+    json_file = list(folder_path.rglob("*.json"))
     for f in json_file:
         with open(f, 'r') as file:
             # load JSON
